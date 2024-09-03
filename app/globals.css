@@ -16,16 +16,76 @@
   }
 }
 
+/* Apply styles to html and body */
+html,
 body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  width: 100%;
+  font-family: "Work Sans", sans-serif;
+  font-optical-sizing: auto;
+  font-variation-settings: "wdth" 100;
+  line-height: 1.5;
+  overflow-y: auto;
+  position: relative; /* Ensure that the pseudo-element is positioned relative to the body */
 }
 
+/* Pseudo-element for background image */
+body::before {
+  content: "";
+  position: fixed; /* Cover the viewport */
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: url("/fwaw_bg.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.3; /* Adjust opacity here */
+  z-index: -1; /* Ensure it is behind other content */
+  pointer-events: none; /* Prevent interaction with the pseudo-element */
+}
+
+.red {
+  background: red;
+}
+
+a:hover {
+  color: blue;
+}
+
+.glass-morphism {
+  width: 50vw;
+  background: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  padding: 1rem 2rem 1rem 2rem;
+}
+
+.bottomize {
+  position: absolute;
+  bottom: 0;
+}
+
+.leftize {
+  position: relative;
+  left: 0;
+}
+
+.apply-button-color {
+  color: #9c703e;
+}
+
+.w80view {
+  width: 80vw;
+}
+
+/* Utility class for text balance */
 @layer utilities {
   .text-balance {
     text-wrap: balance;
