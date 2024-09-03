@@ -11,7 +11,7 @@ export default function LoginForm({ setActiveContent, setView }) {
         >
           Cancel
         </button>
-        <p className="text-2xl font-bold flex-1 text-center">
+        <p className="lg:text-2xl text-sm font-bold flex-1 text-center">
           Login to Your Application
         </p>
       </div>

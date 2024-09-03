@@ -32,9 +32,12 @@ export default function Home() {
     workNumber: "",
     gender: "",
     age: "",
-    dateOfBirth: "",
+    day: "",
+    month: "",
+    year: "",
     isAustralianCitizen: "",
-    whereYouHeard: "",
+    whereYouHeardSelect: "",
+    whereYouHeardOther: "",
     occupation: "",
     readTandC: false,
     readPrivacyPolicy: false,
@@ -76,12 +79,50 @@ export default function Home() {
     applicationData,
   });
 
+  // const handleChange = (e) => {
+  //   const { name, value, type, checked } = e.target;
+  //   setApplicationData((prevState) => ({
+  //     ...prevState,
+  //     [name]: type === "checkbox" ? checked : value,
+  //   }));
+  // };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
-    setApplicationData((prevState) => ({
-      ...prevState,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+
+    switch (type) {
+      case "checkbox":
+        // Handle checkbox inputs
+        setApplicationData((prevData) => ({
+          ...prevData,
+          [name]: checked,
+        }));
+        break;
+
+      case "select-one":
+        // Handle select dropdown inputs
+        setApplicationData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+        break;
+
+      case "date":
+        // Handle date inputs
+        setApplicationData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+        break;
+
+      default:
+        // Handle text and other input types
+        setApplicationData((prevData) => ({
+          ...prevData,
+          [name]: value,
+        }));
+        break;
+    }
   };
 
   const handleSave = () => {
@@ -117,6 +158,7 @@ export default function Home() {
         return (
           <RegistrationForm
             applicationData={applicationData}
+            setApplicationData={setApplicationData}
             contactDetailsProgress={contactDetailsProgress}
             aboutYouProgress={aboutYouProgress}
             legalsAndMedicalProgress={legalsAndMedicalProgress}
@@ -138,7 +180,7 @@ export default function Home() {
 
   return (
     <main className="flex max-h-screen w-full flex-col items-center p-2 lg:overflow-hidden">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm flex flex-col lg:flex-row mb-10 ">
+      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm flex flex-col lg:flex-row  mb-2">
         <div className="flex w-full items-end justify-center dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
           <a
             className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"

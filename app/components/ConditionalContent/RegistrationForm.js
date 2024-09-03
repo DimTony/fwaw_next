@@ -7,6 +7,7 @@ import PhotosAndVideoForm from "../FormComponents/PhotosAndVideo";
 
 export default function RegistrationForm({
   applicationData,
+  setApplicationData,
   contactDetailsProgress,
   aboutYouProgress,
   legalsAndMedicalProgress,
@@ -58,28 +59,47 @@ export default function RegistrationForm({
 
   return (
     <>
-      <div className="w-full px-10 flex flex-col items-center">
-        <p className="text-2xl font-bold mb-4">Complete Your Application</p>
+      <div className="w-full lg:px-10 flex flex-col items-center">
+        <p className="lg:text-2xl font-bold mb-4">Complete Your Application</p>
 
         {/* <ProgressBar progress={contactDetailsProgress} />
         <ProgressBar progress={aboutYouProgress} />
         <ProgressBar progress={legalsAndMedicalProgress} />
         <ProgressBar progress={photosAndVideoProgress} /> */}
 
-        <div className="w-full flex flex-col md:flex-row gap-4 mb-6">
-          <ProgressBar progress={contactDetailsProgress} className="md:w-1/4" />
-          <ProgressBar progress={aboutYouProgress} className="md:w-1/4" />
-          <ProgressBar
-            progress={legalsAndMedicalProgress}
-            className="md:w-1/4"
-          />
-          <ProgressBar progress={photosAndVideoProgress} className="md:w-1/4" />
+        <div className="w-full flex flex-col justify-evenly md:flex-row lg:gap-4 gap-2 mb-6 ">
+          <div className=" w-full flex flex-col items-start">
+            <p>Contact Details</p>
+            <ProgressBar
+              progress={contactDetailsProgress}
+              className="md:w-1/4"
+            />
+          </div>
+          <div className=" w-full flex flex-col items-start">
+            <p>About You</p>
+            <ProgressBar progress={aboutYouProgress} className="md:w-1/4" />
+          </div>
+          <div className="w-full flex flex-col items-start">
+            <p>Legals & Medical</p>
+            <ProgressBar
+              progress={legalsAndMedicalProgress}
+              className="md:w-1/4"
+            />
+          </div>
+          <div className=" w-full flex flex-col items-start">
+            <p>Photos & Video</p>
+            <ProgressBar
+              progress={photosAndVideoProgress}
+              className="md:w-1/4"
+            />
+          </div>
         </div>
 
         {/* Replace this with your actual form with pre-filled data */}
         {currentStep === 0 && (
           <ContactDetailsForm
             applicationData={applicationData}
+            setApplicationData={setApplicationData}
             handleChange={handleChange}
             handleSave={handleSave}
             handleNext={handleNext}
