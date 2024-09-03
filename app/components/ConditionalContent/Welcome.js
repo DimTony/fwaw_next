@@ -1,8 +1,8 @@
 export default function Welcome() {
   return (
     <>
-      <div className="w-full px-10 flex flex-col items-center" id="welcome">
-        <p className="text-2xl font-bold mb-4">
+      <div className="w-full lg:px-10 flex flex-col items-center" id="welcome">
+        <p className="text-2xl font-bold mb-4 text-center">
           WELCOME TO THE APPLICATION FOR 2025's SEASON OF FARMER WANTS A WIFE!
         </p>
         <p className="text-xl text-center font-medium mb-2">
@@ -18,10 +18,10 @@ export default function Welcome() {
         </p>
 
         <div className="mb-5">
-          <p className="text-xl text-center font-medium ">
+          <p className="text-xl text-center font-medium">
             Farmers, to begin your love story:
           </p>
-          <ul className="text-lg list-disc pl-20 text-left glass-morphism ">
+          <ul className="text-lg list-disc pl-20 text-left glass-morphism">
             <li>
               Click on the{" "}
               <span className="apply-button-color font-bold">"Apply"</span>{" "}
@@ -35,7 +35,6 @@ export default function Welcome() {
               Accurately fill in your details and answer just a couple questions
               about you
             </li>
-
             <li>Upload a recent photo</li>
           </ul>
         </div>
