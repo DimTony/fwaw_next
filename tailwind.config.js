@@ -16,6 +16,13 @@ module.exports = {
         "cancel-button-gradient":
           "linear-gradient(to bottom, #b33b57, rgba(255, 254, 237, 0.5))",
       },
+      fontSize: {
+        "custom-xs": "0.65rem", // Custom extra small size
+        "custom-base": "0.9rem", // Custom small size
+        "custom-lg": "1.4rem", // Custom large size
+        "custom-xl": "2.0rem", // Custom extra large size
+        // Add more custom sizes as needed
+      },
     },
   },
   plugins: [],

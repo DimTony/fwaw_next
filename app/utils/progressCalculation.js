@@ -8,7 +8,6 @@ export const calculateContactDetailsProgress = ({ applicationData }) => {
     applicationData.password,
     applicationData.confirmPassword,
     applicationData.addressLine1,
-    applicationData.addressLine2,
     applicationData.city,
     applicationData.state,
     applicationData.zipcode,
@@ -16,34 +15,37 @@ export const calculateContactDetailsProgress = ({ applicationData }) => {
     applicationData.workNumber,
     applicationData.gender,
     applicationData.age,
-    applicationData.dateOfBirth,
+    applicationData.day,
+    applicationData.month,
+    applicationData.year,
     applicationData.isAustralianCitizen,
-    applicationData.whereYouHeard,
+    applicationData.whereYouHeardSelect,
     applicationData.occupation,
   ];
 
   // Define the fields that count for 12% each
-  const booleanFields = [
-    applicationData.readTandC,
-    applicationData.readPrivacyPolicy,
-  ];
+  //   const booleanFields = [
+  //     applicationData.readTandC,
+  //     applicationData.readPrivacyPolicy,
+  //   ];
 
   // Calculate progress
   const totalBasicFields = basicFields.length;
-  const totalBooleanFields = booleanFields.length;
+  //   const totalBooleanFields = booleanFields.length;
 
   const filledBasicFields = basicFields.filter(
     (field) => field !== "" && field !== false
   ).length;
-  const filledBooleanFields = booleanFields.filter(
-    (field) => field === true
-  ).length;
+  //   const filledBooleanFields = booleanFields.filter(
+  //     (field) => field === true
+  //   ).length;
 
-  const basicFieldProgress = (filledBasicFields / totalBasicFields) * 4;
-  const booleanFieldProgress = (filledBooleanFields / totalBooleanFields) * 12;
+  const basicFieldProgress = (filledBasicFields / totalBasicFields) * 100;
+  //   const booleanFieldProgress = (filledBooleanFields / totalBooleanFields) * 12;
 
   // Total progress
-  return basicFieldProgress + booleanFieldProgress;
+  //   return basicFieldProgress + booleanFieldProgress;
+  return basicFieldProgress;
 };
 
 export const calculateAboutYouProgress = ({ applicationData }) => {
