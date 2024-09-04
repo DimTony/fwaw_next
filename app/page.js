@@ -143,6 +143,7 @@ export default function Home() {
 
     return isValid;
   };
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
 
@@ -256,7 +257,13 @@ export default function Home() {
       case "welcome":
         return <Welcome />;
       case "login":
-        return <LoginForm setActiveContent={setActiveContent} />;
+        return (
+          <LoginForm
+            setActiveContent={setActiveContent}
+            applicationData={applicationData}
+            setApplicationData={setApplicationData}
+          />
+        );
       case "application":
         return (
           <RegistrationForm

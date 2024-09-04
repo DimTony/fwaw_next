@@ -1,10 +1,15 @@
 import { useEffect, useState } from "react";
 import HashLoader from "react-spinners/HashLoader";
 import RegistrationForm from "./RegistrationForm";
+import { toast } from "react-toastify";
 
-export default function LoginForm({ setActiveContent, setView }) {
+export default function LoginForm({
+  setActiveContent,
+  applicationData,
+  setApplicationData,
+  setView,
+}) {
   const [loading, setLoading] = useState(true);
-  const [applicationData, setApplicationData] = useState(null);
 
   useEffect(() => {
     const checkToken = async () => {
@@ -16,21 +21,31 @@ export default function LoginForm({ setActiveContent, setView }) {
       }
 
       try {
-        const response = await fetch("/api/user", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.post(
+          "/api/getUserData",
+          {},
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = await response.json();
 
-        if (response.ok && data.data) {
-          setApplicationData(data.data);
+        if (response.ok && data.applicationData) {
+          localStorage.setItem("fwawToken", response.data.token);
+          setApplicationData(data.applicationData);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
+        if (err.response && err.response.data && err.response.data.error) {
+          toast.error(err.response.data.error);
+          // setError(err.response.data.error);
+        } else {
+          toast.error("An unexpected error occurred. Please try again.");
+          // setError("An unexpected error occurred. Please try again.");
+        }
       } finally {
         // Ensure the loading spinner shows for at least 3 seconds
         setTimeout(() => setLoading(false), 3000);
@@ -45,19 +60,29 @@ export default function LoginForm({ setActiveContent, setView }) {
     const startTime = Date.now();
 
     try {
-      const response = await fetch("/api/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(credentials),
-      });
+      // const response = await fetch("/api/login", {
+      //   method: "POST",
+      //   headers: {
+      //     "Content-Type": "application/json",
+      //   },
+      //   body: JSON.stringify(credentials),
+      // });
+
+      const response = await axios.post(
+        "/api/login",
+        { email, password },
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
 
       const data = await response.json();
 
-      if (response.ok && data.token) {
+      if (response.ok && data.applicationData) {
         localStorage.setItem("fwawToken", data.token);
-        setApplicationData(data.userData || {}); // Use empty object if userData is null or undefined
+        setApplicationData(data.applicationData);
       } else {
         console.error("Login failed:", data.message);
         setApplicationData(null);

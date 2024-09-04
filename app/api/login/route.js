@@ -7,17 +7,23 @@ export async function POST(request) {
   try {
     const { email, password } = await request.json();
     const db = await connectToDatabase();
-    const usersCollection = db.collection("users");
+    const applicationsCollection = db.collection("Application");
 
-    // Find the user
-    const user = await usersCollection.findOne({ email });
+    // Find the application
+    const application = await applicationsCollection.findOne({ email });
 
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
+    if (!application) {
+      return NextResponse.json(
+        { error: "Application not found" },
+        { status: 404 }
+      );
     }
 
     // Check password
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+    const isPasswordValid = await bcrypt.compare(
+      password,
+      application.password
+    );
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid password" }, { status: 401 });
@@ -25,24 +31,24 @@ export async function POST(request) {
 
     // Create a token
     const token = jwt.sign(
-      { userId: user._id, email: user.email },
+      { applicationId: application._id, email: application.email },
       process.env.JWT_SECRET,
       { expiresIn: "1h" }
     );
 
-    // Fetch saved data for registration completion
-    const savedData = await usersCollection.findOne(
-      { _id: user._id },
-      { projection: { savedRegistrationData: 1 } }
+    // Fetch matching data for the authenticated application
+    const applicationData = await applicationsCollection.findOne(
+      { _id: application._id },
+      { projection: { password: 0 } } // Exclude password from the returned data
     );
 
     return NextResponse.json({
-      message: "Login successful",
+      message: "Authentication successful",
       token,
-      savedData: savedData?.savedRegistrationData || null,
+      applicationData,
     });
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Authentication error:", error);
     return NextResponse.json(
       { error: "Internal server error" },
       { status: 500 }
