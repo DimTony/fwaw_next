@@ -262,6 +262,21 @@ export default function Home() {
             setActiveContent={setActiveContent}
             applicationData={applicationData}
             setApplicationData={setApplicationData}
+            errors={errors}
+            contactDetailsProgress={contactDetailsProgress}
+            aboutYouProgress={aboutYouProgress}
+            legalsAndMedicalProgress={legalsAndMedicalProgress}
+            photosAndVideoProgress={photosAndVideoProgress}
+            handleChange={handleChange}
+            handleSave={handleSave}
+            handleSaveClick={handleSaveClick}
+            handleNext={handleNext}
+            handleSubmit={handleSubmit}
+            isLastStep={isLastStep}
+            isFormComplete={isFormComplete}
+            validateFormSave={validateFormSave}
+            currentStep={currentStep}
+            setCurrentStep={setCurrentStep}
           />
         );
       case "application":

@@ -8,6 +8,21 @@ export default function LoginForm({
   applicationData,
   setApplicationData,
   setView,
+  errors,
+  contactDetailsProgress,
+  aboutYouProgress,
+  legalsAndMedicalProgress,
+  photosAndVideoProgress,
+  handleChange,
+  handleSave,
+  handleSaveClick,
+  handleNext,
+  handleSubmit,
+  isLastStep,
+  isFormComplete,
+  validateFormSave,
+  currentStep,
+  setCurrentStep,
 }) {
   const [loading, setLoading] = useState(true);
 
@@ -36,6 +51,7 @@ export default function LoginForm({
         if (response.ok && data.applicationData) {
           localStorage.setItem("fwawToken", response.data.token);
           setApplicationData(data.applicationData);
+          console.log("data here", data.applicationData);
         }
       } catch (error) {
         console.error("Error fetching user data:", error);
@@ -99,7 +115,7 @@ export default function LoginForm({
     }
   };
 
-  const handleSubmit = async (e) => {
+  const handleLoginClick = async (e) => {
     e.preventDefault();
     const form = e.target;
     const credentials = {
@@ -117,8 +133,33 @@ export default function LoginForm({
     );
   }
 
-  if (applicationData) {
-    return <RegistrationForm applicationData={applicationData} />;
+  if (
+    applicationData?.email &&
+    applicationData?.confirmEmail &&
+    applicationData?.password &&
+    applicationData?.confirmPassword
+  ) {
+    return (
+      <RegistrationForm
+        applicationData={applicationData}
+        errors={errors}
+        setApplicationData={setApplicationData}
+        contactDetailsProgress={contactDetailsProgress}
+        aboutYouProgress={aboutYouProgress}
+        legalsAndMedicalProgress={legalsAndMedicalProgress}
+        photosAndVideoProgress={photosAndVideoProgress}
+        handleChange={handleChange}
+        handleSave={handleSave}
+        handleSaveClick={handleSaveClick}
+        handleNext={handleNext}
+        handleSubmit={handleSubmit}
+        isLastStep={isLastStep}
+        isFormComplete={isFormComplete}
+        validateFormSave={validateFormSave}
+        currentStep={currentStep}
+        setCurrentStep={setCurrentStep}
+      />
+    );
   }
 
   return (
@@ -137,7 +178,7 @@ export default function LoginForm({
           Login to Your Application
         </p>
       </div>
-      <form onSubmit={handleSubmit} className="w-full max-w-md">
+      <form onSubmit={handleLoginClick} className="w-full max-w-md">
         <input
           type="email"
           name="email"
